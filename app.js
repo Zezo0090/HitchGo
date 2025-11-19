@@ -25,7 +25,6 @@ const themeToggle = document.getElementById('themeToggle');
 const chatWidget = document.getElementById('chatWidget');
 const chatModal = document.getElementById('chatModal');
 const chatClose = document.getElementById('chatClose');
-const contactForm = document.getElementById('contactForm');
 const chatForm = document.getElementById('chatForm');
 const notification = document.getElementById('notification');
 
@@ -36,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEventListeners();
   setupScrollAnimations();
   animateStats();
-  setupFAQ();
   setupSmoothScroll();
+  setupParallax();
 });
 
 // Theme Management
@@ -88,8 +87,6 @@ function updateLanguage() {
     const text = currentLanguage === 'en' ? element.getAttribute('data-en') : element.getAttribute('data-ar');
     if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
       element.placeholder = text;
-    } else if (element.tagName === 'OPTION') {
-      element.textContent = text;
     } else {
       element.textContent = text;
     }
@@ -107,6 +104,27 @@ function updateFormPlaceholders() {
   if (chatName) chatName.placeholder = translations[currentLanguage].chatNamePlaceholder;
   if (chatEmail) chatEmail.placeholder = translations[currentLanguage].chatEmailPlaceholder;
   if (chatMessage) chatMessage.placeholder = translations[currentLanguage].chatMessagePlaceholder;
+  
+  // Update contact form placeholders
+  const contactForm = document.querySelector('.contact-form');
+  if (contactForm) {
+    const nameInput = contactForm.querySelector('input[name="name"]');
+    const emailInput = contactForm.querySelector('input[name="email"]');
+    const messageTextarea = contactForm.querySelector('textarea[name="message"]');
+    
+    if (nameInput) {
+      const placeholder = nameInput.getAttribute('data-placeholder-' + currentLanguage);
+      if (placeholder) nameInput.placeholder = placeholder;
+    }
+    if (emailInput) {
+      const placeholder = emailInput.getAttribute('data-placeholder-' + currentLanguage);
+      if (placeholder) emailInput.placeholder = placeholder;
+    }
+    if (messageTextarea) {
+      const placeholder = messageTextarea.getAttribute('data-placeholder-' + currentLanguage);
+      if (placeholder) messageTextarea.placeholder = placeholder;
+    }
+  }
 }
 
 // Event Listeners
@@ -145,9 +163,6 @@ function setupEventListeners() {
     }
   });
   
-  // Contact form - NO JavaScript interference, submit naturally to FormSubmit
-  // contactForm.addEventListener('submit', handleFormSubmit); // REMOVED
-  
   // Chat form submission
   chatForm.addEventListener('submit', handleChatSubmit);
   
@@ -159,11 +174,15 @@ function setupEventListeners() {
       navbar.classList.remove('scrolled');
     }
   });
+  
+  // Download button handlers
+  document.querySelectorAll('.download-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      showNotification('Coming soon! The HitchGo app will be available shortly.');
+    });
+  });
 }
-
-// Form Handling - REMOVED TO ALLOW NATURAL FormSubmit SUBMISSION
-// No preventDefault(), no AJAX, no interference
-// Form submits directly to FormSubmit via POST
 
 function handleChatSubmit(e) {
   e.preventDefault();
@@ -172,20 +191,21 @@ function handleChatSubmit(e) {
   const email = document.getElementById('chatEmail').value;
   const message = document.getElementById('chatMessage').value;
   
-  // Validate
   if (!name || !email || !message) {
     return;
   }
   
-  // Show success message
-  showNotification();
-  
-  // Reset form and close modal
+  showNotification('Thank you! Your message has been sent.');
   chatForm.reset();
   chatModal.classList.remove('active');
 }
 
-function showNotification() {
+function showNotification(message) {
+  const notificationText = notification.querySelector('.notification-text');
+  if (message) {
+    notificationText.textContent = message;
+  }
+  
   notification.classList.add('show');
   
   setTimeout(() => {
@@ -224,18 +244,19 @@ function setupScrollAnimations() {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        entry.target.classList.add('fade-in');
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
         observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
   
-  document.querySelectorAll('.service-card, .partnership-card, .stat-card').forEach(el => {
+  document.querySelectorAll('.stat-card, .testimonial-card, .feature-card, .partnership-card, .value-item, .coverage-card, .contact-method-card').forEach(el => {
     observer.observe(el);
   });
 }
 
-// Animated Stats Counter with suffix support
+// Animated Stats Counter
 function animateStats() {
   const statNumbers = document.querySelectorAll('.stat-number');
   
@@ -262,7 +283,7 @@ function animateStats() {
 function animateCounter(element, target, suffix) {
   let current = 0;
   const increment = target / 60;
-  const duration = 2200;
+  const duration = 2000;
   const stepTime = duration / 60;
   
   const timer = setInterval(() => {
@@ -277,79 +298,36 @@ function animateCounter(element, target, suffix) {
 }
 
 function formatNumber(num, suffix) {
-  if (suffix === 'M+' && num >= 1000000) {
-    return '1M+';
-  }
   if (suffix === '%') {
     return num.toFixed(1) + '%';
   }
+  if (suffix === 'K+') {
+    return Math.floor(num) + 'K+';
+  }
   if (suffix === '+') {
-    return num + '+';
+    return Math.floor(num) + '+';
   }
-  if (num >= 1000 && !suffix) {
-    return (num / 1000).toFixed(0) + 'K+';
-  }
-  return num + suffix;
+  return Math.floor(num);
 }
 
-// FAQ Accordion with search
-function setupFAQ() {
-  const faqItems = document.querySelectorAll('.faq-item');
-  const faqSearch = document.getElementById('faqSearch');
-  
-  faqItems.forEach(item => {
-    const question = item.querySelector('.faq-question');
-    
-    question.addEventListener('click', () => {
-      const isActive = item.classList.contains('active');
-      
-      // Close all items
-      faqItems.forEach(otherItem => {
-        otherItem.classList.remove('active');
-      });
-      
-      // Toggle current item
-      if (!isActive) {
-        item.classList.add('active');
-      }
-    });
-  });
-  
-  // FAQ search functionality (if FAQ exists)
-  if (faqSearch) {
-    faqSearch.addEventListener('input', (e) => {
-      const searchTerm = e.target.value.toLowerCase();
-      
-      faqItems.forEach(item => {
-        const questionText = item.querySelector('.faq-question span').textContent.toLowerCase();
-        const answerText = item.querySelector('.faq-answer p').textContent.toLowerCase();
-        
-        if (questionText.includes(searchTerm) || answerText.includes(searchTerm)) {
-          item.style.display = 'block';
-        } else {
-          item.style.display = 'none';
-        }
-      });
-    });
-  }
-}
-
-// Enhanced Parallax Effect for Hero
+// Parallax Effect
 let ticking = false;
 
-window.addEventListener('scroll', () => {
-  if (!ticking) {
-    window.requestAnimationFrame(() => {
-      handleParallax();
-      ticking = false;
-    });
-    ticking = true;
-  }
-});
+function setupParallax() {
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        handleParallax();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
 
 function handleParallax() {
   const scrolled = window.pageYOffset;
-  const hero = document.querySelector('.hero-content');
+  const hero = document.querySelector('.hero-container');
   const shapes = document.querySelectorAll('.shape');
   
   if (hero && scrolled < window.innerHeight) {
@@ -363,91 +341,18 @@ function handleParallax() {
   });
 }
 
-// Enhanced Card Hover Effects
-document.querySelectorAll('.service-card, .testimonial-card, .insight-card, .pricing-card').forEach(card => {
+// Card hover effects with 3D tilt
+document.querySelectorAll('.service-card, .testimonial-card, .feature-card, .partnership-card').forEach(card => {
   card.addEventListener('mouseenter', function() {
-    if (!card.classList.contains('pricing-featured')) {
-      this.style.transform = 'translateY(-10px) scale(1.015)';
-    }
+    this.style.willChange = 'transform';
   });
   
   card.addEventListener('mouseleave', function() {
-    if (!card.classList.contains('pricing-featured')) {
-      this.style.transform = '';
-    }
+    this.style.willChange = 'auto';
   });
 });
 
-// Dynamic year in footer
-const yearElements = document.querySelectorAll('.current-year');
-yearElements.forEach(el => {
-  el.textContent = new Date().getFullYear();
-});
-
-// Update FAQ search placeholder on language change
-function updateFormPlaceholders() {
-  const chatName = document.getElementById('chatName');
-  const chatEmail = document.getElementById('chatEmail');
-  const chatMessage = document.getElementById('chatMessage');
-  const faqSearch = document.getElementById('faqSearch');
-  
-  if (chatName) chatName.placeholder = translations[currentLanguage].chatNamePlaceholder;
-  if (chatEmail) chatEmail.placeholder = translations[currentLanguage].chatEmailPlaceholder;
-  if (chatMessage) chatMessage.placeholder = translations[currentLanguage].chatMessagePlaceholder;
-  
-  // Update contact form placeholders (by name attribute, not ID)
-  const contactForm = document.querySelector('.contact-form');
-  if (contactForm) {
-    const nameInput = contactForm.querySelector('input[name="name"]');
-    const emailInput = contactForm.querySelector('input[name="email"]');
-    const messageTextarea = contactForm.querySelector('textarea[name="message"]');
-    
-    if (nameInput) {
-      const placeholder = nameInput.getAttribute('data-placeholder-' + currentLanguage);
-      if (placeholder) nameInput.placeholder = placeholder;
-    }
-    if (emailInput) {
-      const placeholder = emailInput.getAttribute('data-placeholder-' + currentLanguage);
-      if (placeholder) emailInput.placeholder = placeholder;
-    }
-    if (messageTextarea) {
-      const placeholder = messageTextarea.getAttribute('data-placeholder-' + currentLanguage);
-      if (placeholder) messageTextarea.placeholder = placeholder;
-    }
-  }
-  
-  if (faqSearch) {
-    const placeholderEn = faqSearch.getAttribute('data-placeholder-en');
-    const placeholderAr = faqSearch.getAttribute('data-placeholder-ar');
-    faqSearch.placeholder = currentLanguage === 'en' ? placeholderEn : placeholderAr;
-  }
-}
-
-// Prevent default on download buttons (since apps don't exist yet)
-document.querySelectorAll('.download-btn').forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault();
-    const message = currentLanguage === 'en' 
-      ? 'Coming soon! The HitchGo app will be available shortly.'
-      : 'قريباً! سيكون تطبيق HitchGo متاحاً قريباً.';
-    
-    const tempNotification = notification.cloneNode(true);
-    const notifText = tempNotification.querySelector('.notification-text');
-    notifText.textContent = message;
-    document.body.appendChild(tempNotification);
-    
-    setTimeout(() => {
-      tempNotification.classList.add('show');
-    }, 100);
-    
-    setTimeout(() => {
-      tempNotification.classList.remove('show');
-      setTimeout(() => tempNotification.remove(), 300);
-    }, 3000);
-  });
-});
-
-// Timeline animation on scroll
+// Timeline animations
 function setupTimelineAnimation() {
   const timelineItems = document.querySelectorAll('.timeline-item');
   
@@ -475,5 +380,4 @@ function setupTimelineAnimation() {
   });
 }
 
-// Initialize timeline animation
 setupTimelineAnimation();
