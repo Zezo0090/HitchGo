@@ -3,27 +3,1559 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="HitchGo - Enterprise-grade smart logistics platform for modern Arabia. ISO 9001 certified, bank-grade security, 99.8% on-time delivery rate.">
-    <meta name="keywords" content="enterprise logistics, Saudi Arabia delivery, smart logistics, B2B delivery, API integration, white-label logistics">
-    <meta property="og:title" content="HitchGo – Smart Logistics for Modern Arabia">
-    <meta property="og:description" content="Enterprise-grade logistics platform connecting businesses across Saudi Arabia with 99.8% on-time rate.">
+    <meta name="description" content="HitchGo - Saudi Arabia's leading smart logistics platform. Share Ride, Share Cost. 99.8% on-time delivery.">
+    <meta name="keywords" content="logistics, delivery, Saudi Arabia, rideshare, smart delivery">
+    <meta property="og:title" content="HitchGo - Share Ride, Share Cost">
+    <meta property="og:description" content="Transform logistics across Saudi Arabia with 99.8% on-time delivery">
     <meta property="og:type" content="website">
-    <title>HitchGo – Smart Logistics for Modern Arabia | Enterprise Platform</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>HitchGo - Share Ride, Share Cost | Smart Logistics Platform</title>
+    <style>
+      /* Design System Variables */
+      :root {
+        --primary: #00BFA5;
+        --primary-hover: #00A893;
+        --primary-active: #008F7F;
+        --secondary: #10B981;
+        --accent: #3B82F6;
+        --bg-white: #FFFFFF;
+        --bg-light: #F8F9FA;
+        --bg-surface: #FFFFFF;
+        --text-primary: #0F1419;
+        --text-secondary: #6B7280;
+        --border: #E5E7EB;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+        --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+        --shadow-xl: 0 20px 25px rgba(0,0,0,0.15);
+        --radius-sm: 6px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+        --radius-xl: 16px;
+        --radius-full: 9999px;
+        --transition-fast: 0.15s cubic-bezier(0.4, 0.0, 0.2, 1);
+        --transition-normal: 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        --transition-slow: 0.5s cubic-bezier(0.4, 0.0, 0.2, 1);
+        --gradient-primary: linear-gradient(135deg, #00BFA5 0%, #10B981 100%);
+        --gradient-hero: linear-gradient(135deg, #FFFFFF 0%, #F8F9FA 100%);
+      }
+
+      [data-theme="dark"] {
+        --bg-white: #0F1419;
+        --bg-light: #1A202C;
+        --bg-surface: #1A202C;
+        --text-primary: #F3F4F6;
+        --text-secondary: #D1D5DB;
+        --border: #374151;
+        --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+        --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+        --shadow-lg: 0 10px 15px rgba(0,0,0,0.5);
+        --shadow-xl: 0 20px 25px rgba(0,0,0,0.6);
+        --gradient-hero: linear-gradient(135deg, #0F1419 0%, #1A202C 100%);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        font-size: 16px;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        line-height: 1.6;
+        color: var(--text-primary);
+        background: var(--bg-white);
+        overflow-x: hidden;
+        transition: background 0.3s ease, color 0.3s ease;
+      }
+
+      [dir="rtl"] {
+        direction: rtl;
+      }
+
+      /* Navbar */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        box-shadow: var(--shadow-sm);
+        transition: all var(--transition-normal);
+        border-bottom: 1px solid var(--border);
+      }
+
+      [data-theme="dark"] .navbar {
+        background: rgba(15, 20, 25, 0.95);
+      }
+
+      .navbar.scrolled {
+        box-shadow: var(--shadow-md);
+      }
+
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 2rem;
+      }
+
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        transition: transform var(--transition-fast);
+      }
+
+      .nav-brand:hover {
+        transform: scale(1.02);
+      }
+
+      .logo-img {
+        height: 44px;
+        width: auto;
+        display: block;
+      }
+
+      .nav-menu {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-link {
+        color: var(--text-primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.95rem;
+        position: relative;
+        padding: 0.3rem 0;
+        transition: color var(--transition-fast);
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: var(--gradient-primary);
+        border-radius: 3px;
+        transition: width var(--transition-normal);
+      }
+
+      .nav-link:hover {
+        color: var(--primary);
+      }
+
+      .nav-link:hover::after {
+        width: 100%;
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .lang-toggle,
+      .theme-toggle {
+        background: var(--bg-surface);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.9rem;
+        transition: all var(--transition-fast);
+        color: var(--text-primary);
+      }
+
+      .lang-toggle:hover,
+      .theme-toggle:hover {
+        background: var(--primary);
+        color: white;
+        border-color: var(--primary);
+        transform: translateY(-2px);
+      }
+
+      .btn-nav-cta {
+        display: inline-block;
+        background: var(--gradient-primary);
+        color: white;
+        padding: 0.6rem 1.5rem;
+        border-radius: var(--radius-full);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 700;
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .btn-nav-cta:hover {
+        transform: translateY(-2px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .mobile-toggle {
+        display: none;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+
+      .hamburger {
+        display: block;
+        width: 25px;
+        height: 2px;
+        background: var(--text-primary);
+        position: relative;
+        transition: all var(--transition-fast);
+      }
+
+      .hamburger::before,
+      .hamburger::after {
+        content: '';
+        position: absolute;
+        width: 25px;
+        height: 2px;
+        background: var(--text-primary);
+        transition: all var(--transition-fast);
+      }
+
+      .hamburger::before { top: -8px; }
+      .hamburger::after { top: 8px; }
+
+      /* Hero Section */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        background: var(--gradient-hero);
+        margin-top: 70px;
+        padding: 3rem 1.5rem;
+      }
+
+      .hero-background {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .animated-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .shape {
+        position: absolute;
+        background: rgba(0, 191, 165, 0.08);
+        border-radius: 50%;
+        animation: float 20s infinite ease-in-out;
+      }
+
+      .shape-1 {
+        width: 300px;
+        height: 300px;
+        top: 10%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+
+      .shape-2 {
+        width: 200px;
+        height: 200px;
+        top: 60%;
+        right: 15%;
+        animation-delay: 5s;
+      }
+
+      .shape-3 {
+        width: 150px;
+        height: 150px;
+        bottom: 10%;
+        left: 50%;
+        animation-delay: 10s;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        25% { transform: translate(30px, -30px) rotate(90deg); }
+        50% { transform: translate(-20px, 20px) rotate(180deg); }
+        75% { transform: translate(20px, 30px) rotate(270deg); }
+      }
+
+      .hero-container {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .hero-title {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 900;
+        color: var(--text-primary);
+        margin-bottom: 1.5rem;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+        animation: fadeInUp 0.8s cubic-bezier(.17,.67,.3,.99);
+      }
+
+      .hero-subtitle {
+        font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+        color: var(--text-secondary);
+        margin-bottom: 2.5rem;
+        line-height: 1.65;
+        animation: fadeInUp 0.8s cubic-bezier(.17,.67,.3,.99) 0.15s both;
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+        animation: fadeInUp 1s ease 0.4s both;
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Buttons */
+      .btn {
+        display: inline-block;
+        padding: 1rem 2.5rem;
+        border-radius: var(--radius-full);
+        font-weight: 700;
+        text-decoration: none;
+        transition: all var(--transition-normal);
+        border: none;
+        cursor: pointer;
+        font-size: 1.05rem;
+      }
+
+      .btn-primary {
+        background: var(--gradient-primary);
+        color: white;
+        box-shadow: var(--shadow-md);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: var(--shadow-xl);
+      }
+
+      .btn-secondary {
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        border: 2px solid var(--border);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .btn-secondary:hover {
+        background: var(--bg-light);
+        transform: translateY(-4px) scale(1.03);
+        box-shadow: var(--shadow-md);
+      }
+
+      /* Stats Section */
+      .stats {
+        padding: 4rem 0;
+        background: var(--bg-light);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .stat-card {
+        background: var(--bg-surface);
+        padding: 2.5rem 2rem;
+        border-radius: var(--radius-lg);
+        text-align: center;
+        box-shadow: var(--shadow-sm);
+        border: 1px solid var(--border);
+        transition: all var(--transition-normal);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .stat-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform var(--transition-normal);
+      }
+
+      .stat-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
+      }
+
+      .stat-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .stat-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .stat-number {
+        font-size: 3.2rem;
+        font-weight: 900;
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.02em;
+      }
+
+      .stat-label {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--text-primary);
+      }
+
+      /* Section Styles */
+      .section-title {
+        font-size: clamp(2.2rem, 4vw, 2.9rem);
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+        letter-spacing: -0.025em;
+        line-height: 1.25;
+      }
+
+      .section-subtitle {
+        font-size: 1.12rem;
+        text-align: center;
+        color: var(--text-secondary);
+        margin-bottom: 3rem;
+        line-height: 1.65;
+        max-width: 680px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Services Section */
+      .services {
+        padding: 4rem 0;
+        background: var(--bg-white);
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .service-card {
+        background: var(--bg-surface);
+        padding: 2.8rem 2.2rem;
+        border-radius: var(--radius-lg);
+        transition: all var(--transition-normal);
+        border: 1.5px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(30px);
+        animation: slideUp 0.6s forwards;
+      }
+
+      .service-card:nth-child(1) { animation-delay: 0.1s; }
+      .service-card:nth-child(2) { animation-delay: 0.2s; }
+      .service-card:nth-child(3) { animation-delay: 0.3s; }
+
+      @keyframes slideUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .service-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 5px;
+        background: var(--gradient-primary);
+        transform: scaleX(0);
+        transition: transform var(--transition-normal);
+        transform-origin: left;
+      }
+
+      .service-card:hover {
+        transform: translateY(-12px) scale(1.015);
+        box-shadow: var(--shadow-xl);
+        border-color: var(--primary);
+      }
+
+      .service-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .service-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .service-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .service-description {
+        color: var(--text-secondary);
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .service-link {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        transition: all var(--transition-fast);
+      }
+
+      .service-link:hover {
+        color: var(--primary-hover);
+      }
+
+      /* About Section */
+      .about-hitchgo {
+        padding: 4rem 0;
+        background: var(--bg-white);
+      }
+
+      .about-content {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .about-text {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: var(--text-primary);
+        margin-bottom: 3rem;
+      }
+
+      .about-values {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .value-item {
+        background: var(--bg-surface);
+        padding: 2.5rem 2rem;
+        border-radius: var(--radius-lg);
+        border: 1.5px solid var(--border);
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .value-item:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
+      }
+
+      .value-icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .value-item h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.8rem;
+      }
+
+      .value-item p {
+        font-size: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* How It Works */
+      .how-it-works {
+        padding: 4rem 0;
+        background: var(--bg-white);
+      }
+
+      .timeline {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0;
+        max-width: 1140px;
+        margin: 3rem auto;
+        flex-wrap: nowrap;
+      }
+
+      .timeline-item {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        position: relative;
+        min-width: 160px;
+      }
+
+      .timeline-number {
+        width: 64px;
+        height: 64px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.75rem;
+        font-weight: 900;
+        margin-bottom: 1.3rem;
+        box-shadow: var(--shadow-md);
+        transition: all var(--transition-normal);
+        z-index: 2;
+      }
+
+      .timeline-item:hover .timeline-number {
+        transform: scale(1.15);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .timeline-content h3 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .timeline-content p {
+        font-size: 0.93rem;
+        color: var(--text-secondary);
+        line-height: 1.5;
+      }
+
+      .timeline-connector {
+        flex: 0 0 50px;
+        height: 3px;
+        background: var(--gradient-primary);
+        align-self: flex-start;
+        margin-top: 31px;
+        border-radius: 10px;
+        opacity: 0.5;
+      }
+
+      /* Enterprise Features */
+      .enterprise-features {
+        padding: 4rem 0;
+        background: var(--bg-light);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.8rem;
+      }
+
+      .feature-card {
+        background: var(--bg-surface);
+        padding: 2.2rem 1.8rem;
+        border-radius: var(--radius-md);
+        text-align: center;
+        border: 1.5px solid var(--border);
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
+      }
+
+      .feature-icon {
+        font-size: 2.8rem;
+        margin-bottom: 1.1rem;
+      }
+
+      .feature-card h3 {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.7rem;
+      }
+
+      .feature-card p {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      /* Testimonials */
+      .testimonials {
+        padding: 4rem 0;
+        background: var(--bg-white);
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2rem;
+      }
+
+      .testimonial-card {
+        background: var(--bg-surface);
+        padding: 2.4rem 2rem;
+        border-radius: var(--radius-lg);
+        border: 1.5px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        transition: all var(--transition-normal);
+      }
+
+      .testimonial-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
+      }
+
+      .testimonial-rating {
+        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .testimonial-quote {
+        font-size: 1.05rem;
+        line-height: 1.75;
+        color: var(--text-primary);
+        margin-bottom: 1.8rem;
+        font-style: italic;
+      }
+
+      .testimonial-author {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .author-avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 1.4rem;
+        font-weight: 800;
+        flex-shrink: 0;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .author-name {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .author-title {
+        font-size: 0.88rem;
+        color: var(--text-secondary);
+        margin-top: 0.2rem;
+      }
+
+      /* Download Section */
+      .download {
+        padding: 4rem 0;
+        background: var(--bg-light);
+      }
+
+      .download-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .download-buttons {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+        margin-top: 2rem;
+      }
+
+      .download-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        background: var(--bg-surface);
+        padding: 0.9rem 1.6rem;
+        border-radius: var(--radius-md);
+        text-decoration: none;
+        color: var(--text-primary);
+        border: 1.5px solid var(--border);
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .download-btn:hover {
+        border-color: var(--primary);
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .download-icon {
+        font-size: 2.5rem;
+      }
+
+      .download-btn-text {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .download-label {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+      }
+
+      .download-store {
+        font-size: 1.08rem;
+        font-weight: 700;
+      }
+
+      .phone-mockup {
+        width: 270px;
+        height: 540px;
+        background: var(--text-primary);
+        border-radius: 36px;
+        padding: 18px;
+        box-shadow: var(--shadow-xl);
+        margin: 0 auto;
+        border: 6px solid var(--text-primary);
+      }
+
+      .phone-screen {
+        width: 100%;
+        height: 100%;
+        background: var(--gradient-primary);
+        border-radius: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .app-preview {
+        font-size: 5rem;
+        opacity: 0.3;
+      }
+
+      /* Partnership Section */
+      .partnership {
+        padding: 4rem 0;
+        background: var(--bg-white);
+      }
+
+      .partnership-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .partnership-card {
+        background: var(--bg-surface);
+        padding: 3rem 2.5rem;
+        border-radius: var(--radius-lg);
+        text-align: center;
+        border: 1.5px solid var(--border);
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .partnership-card:hover {
+        border-color: var(--primary);
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .partnership-icon {
+        font-size: 4.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .partnership-title {
+        font-size: 1.9rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: var(--text-primary);
+      }
+
+      .partnership-benefits {
+        list-style: none;
+        padding: 0;
+        margin: 2rem 0;
+        text-align: left;
+      }
+
+      .partnership-benefits li {
+        padding: 0.8rem 0;
+        color: var(--text-primary);
+        font-size: 1rem;
+        position: relative;
+        padding-left: 2rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .partnership-benefits li:last-child {
+        border-bottom: none;
+      }
+
+      .partnership-benefits li::before {
+        content: '✓';
+        position: absolute;
+        left: 0;
+        color: var(--primary);
+        font-weight: 900;
+        font-size: 1.2rem;
+      }
+
+      /* Coverage Section */
+      .coverage {
+        padding: 4rem 0;
+        background: var(--bg-white);
+      }
+
+      .coverage-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      .coverage-card {
+        background: var(--bg-surface);
+        padding: 3rem 2rem;
+        border-radius: var(--radius-lg);
+        text-align: center;
+        border: 1.5px solid var(--border);
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .coverage-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
+      }
+
+      .coverage-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .coverage-card h3 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      /* Contact Section */
+      .contact {
+        padding: 4rem 0;
+        background: var(--bg-light);
+      }
+
+      .contact-methods-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+        margin: 3rem 0;
+      }
+
+      .contact-method-card {
+        background: var(--bg-surface);
+        padding: 2.5rem 2rem;
+        border-radius: var(--radius-lg);
+        border: 1.5px solid var(--border);
+        box-shadow: var(--shadow-sm);
+        transition: all var(--transition-normal);
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .contact-method-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-primary);
+        transform: scaleX(0);
+        transition: transform var(--transition-normal);
+        transform-origin: left;
+      }
+
+      .contact-method-card:hover {
+        transform: translateY(-10px);
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
+      }
+
+      .contact-method-card:hover::before {
+        transform: scaleX(1);
+      }
+
+      .contact-method-icon {
+        font-size: 3.5rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .contact-method-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-bottom: 0.8rem;
+      }
+
+      .contact-method-description {
+        font-size: 0.95rem;
+        color: var(--text-secondary);
+        margin-bottom: 1.2rem;
+      }
+
+      .contact-method-value {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin-bottom: 1.5rem;
+        word-break: break-word;
+      }
+
+      .contact-method-btn {
+        display: inline-block;
+        padding: 0.7rem 1.8rem;
+        background: var(--gradient-primary);
+        color: white;
+        border-radius: var(--radius-full);
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 0.95rem;
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .contact-method-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .contact-social-links {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        margin-top: 1rem;
+      }
+
+      .contact-social-icon {
+        width: 56px;
+        height: 56px;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-weight: 700;
+        transition: all var(--transition-normal);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .contact-social-icon:hover {
+        transform: translateY(-5px) scale(1.1);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .contact-response-notice {
+        text-align: center;
+        margin: 2rem 0 3rem 0;
+        padding: 1.2rem;
+        background: rgba(0, 191, 165, 0.08);
+        border-radius: var(--radius-md);
+        border: 1px solid rgba(0, 191, 165, 0.2);
+      }
+
+      .contact-response-notice p {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--primary);
+        margin: 0;
+      }
+
+      .contact-form-section {
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .contact-form-heading {
+        font-size: 1.8rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2rem;
+        color: var(--text-primary);
+      }
+
+      .contact-form {
+        background: var(--bg-surface);
+        padding: 2.8rem;
+        border-radius: var(--radius-lg);
+        border: 1.5px solid var(--border);
+        box-shadow: var(--shadow-md);
+        transition: all var(--transition-normal);
+      }
+
+      .contact-form:hover {
+        box-shadow: var(--shadow-lg);
+        border-color: var(--primary);
+      }
+
+      .contact-form-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.3rem;
+        margin-bottom: 1.3rem;
+      }
+
+      .contact-form input,
+      .contact-form textarea {
+        width: 100%;
+        padding: 0.85rem 1.1rem;
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 1rem;
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        transition: all var(--transition-fast);
+      }
+
+      .contact-form input:focus,
+      .contact-form textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(0, 191, 165, 0.12);
+      }
+
+      .contact-form textarea {
+        resize: vertical;
+        min-height: 150px;
+        margin-bottom: 1.3rem;
+      }
+
+      .contact-form button {
+        width: 100%;
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+      }
+
+      /* Footer */
+      .footer {
+        background: linear-gradient(135deg, #0F1419 0%, #0A0E17 100%);
+        color: white;
+        padding: 3rem 0 2rem 0;
+        border-top: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 3rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-tagline {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.95rem;
+      }
+
+      .footer-social h3 {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+      }
+
+      .social-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .social-link {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.6rem 1.1rem;
+        background: rgba(255, 255, 255, 0.12);
+        border-radius: var(--radius-sm);
+        color: white;
+        text-decoration: none;
+        transition: all var(--transition-normal);
+        border: 1px solid rgba(255,255,255,0.15);
+      }
+
+      .social-link:hover {
+        background: var(--gradient-primary);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      /* Chat Widget */
+      .chat-widget {
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 66px;
+        height: 66px;
+        border-radius: 50%;
+        background: var(--gradient-primary);
+        border: none;
+        cursor: pointer;
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        transition: all var(--transition-normal);
+        z-index: 999;
+      }
+
+      .chat-widget:hover {
+        transform: scale(1.13);
+        box-shadow: 0 12px 50px rgba(0, 191, 165, 0.35);
+      }
+
+      .chat-modal {
+        position: fixed;
+        bottom: 110px;
+        right: 30px;
+        width: 380px;
+        max-height: 540px;
+        background: var(--bg-surface);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-xl);
+        overflow: hidden;
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(20px) scale(0.96);
+        transition: all var(--transition-normal);
+        border: 1.5px solid var(--border);
+      }
+
+      .chat-modal.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0) scale(1);
+      }
+
+      .chat-header {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 1.3rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .chat-header h3 {
+        font-size: 1.25rem;
+        font-weight: 800;
+      }
+
+      .chat-close {
+        background: transparent;
+        border: none;
+        color: white;
+        font-size: 1.5rem;
+        cursor: pointer;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: all var(--transition-fast);
+      }
+
+      .chat-close:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .chat-body {
+        padding: 1.5rem;
+      }
+
+      .chat-info {
+        margin-bottom: 1.5rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .chat-info p {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .chat-form .form-group {
+        margin-bottom: 1rem;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.85rem 1.1rem;
+        border: 1.5px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-family: inherit;
+        font-size: 1rem;
+        background: var(--bg-surface);
+        color: var(--text-primary);
+        transition: all var(--transition-fast);
+      }
+
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(0, 191, 165, 0.12);
+      }
+
+      /* Notification */
+      .notification {
+        position: fixed;
+        top: 100px;
+        right: 30px;
+        background: var(--gradient-primary);
+        color: white;
+        padding: 1.2rem 1.8rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-lg);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        z-index: 1001;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(400px);
+        transition: all var(--transition-normal);
+        max-width: 440px;
+      }
+
+      .notification.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+
+      .notification-icon {
+        font-size: 1.3rem;
+        background: white;
+        color: var(--primary);
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        font-weight: 900;
+      }
+
+      .notification-text {
+        font-size: 0.96rem;
+        line-height: 1.55;
+        font-weight: 600;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .nav-menu {
+          position: fixed;
+          top: 70px;
+          left: 0;
+          right: 0;
+          background: var(--bg-surface);
+          flex-direction: column;
+          padding: 1.5rem;
+          box-shadow: var(--shadow-md);
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(-20px);
+          transition: all var(--transition-normal);
+        }
+
+        .nav-menu.active {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .mobile-toggle {
+          display: block;
+        }
+
+        .btn-nav-cta {
+          display: none;
+        }
+
+        .hero {
+          min-height: 80vh;
+        }
+
+        .timeline {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .timeline-connector {
+          width: 3px;
+          height: 40px;
+          flex: 0 0 40px;
+          margin: 0;
+        }
+
+        .timeline-item {
+          width: 100%;
+          max-width: 400px;
+        }
+
+        .chat-modal {
+          right: 10px;
+          left: 10px;
+          width: auto;
+        }
+
+        .notification {
+          right: 10px;
+          left: 10px;
+          max-width: none;
+        }
+
+        [dir="rtl"] .chat-widget {
+          right: auto;
+          left: 30px;
+        }
+
+        [dir="rtl"] .notification {
+          right: 10px;
+          left: 10px;
+        }
+      }
+
+      /* Smooth scrolling */
+      html {
+        scroll-padding-top: 90px;
+      }
+
+      /* Accessibility */
+      *:focus-visible {
+        outline: 3px solid var(--primary);
+        outline-offset: 3px;
+      }
+
+      /* Selection */
+      ::selection {
+        background: var(--primary);
+        color: white;
+      }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
-                <div class="logo-placeholder">
-                    <span class="logo-placeholder-text"><img src="Logo.png"></span>
-                </div>
-                <span class="brand-name">HitchGo</span>
-            </div>
+            <a href="#home" class="nav-brand">
+                <img src="./Logo.jpg" alt="HitchGo Logo" class="logo-img" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline'">
+                <span class="brand-name" style="display: none;">HitchGo</span>
+            </a>
             
             <div class="nav-menu" id="navMenu">
                 <a href="#home" class="nav-link" data-en="Home" data-ar="الرئيسية">Home</a>
@@ -59,19 +1591,44 @@
             </div>
         </div>
         <div class="hero-container">
-            <div class="hero-content">
-                <h1 class="hero-title" data-en="HitchGo – Share Ride, Share Cost" data-ar="HitchGo – شارك الرحلة، شارك التكلفة">HitchGo – Share Ride, Share Cost</h1>
-                <p class="hero-subtitle" data-en="Next-generation delivery platform connecting individuals and businesses" data-ar="منصة توصيل من الجيل الجديد تربط الأفراد والشركات">Next-generation delivery platform connecting individuals and businesses</p>
-                <div class="hero-buttons">
-                    <a href="#download" class="btn btn-primary" data-en="Download App" data-ar="حمّل التطبيق">Download App</a>
-                    <a href="#partners" class="btn btn-secondary" data-en="Become a Partner" data-ar="كن شريكاً">Become a Partner</a>
-                </div>
-
+            <h1 class="hero-title" data-en="Share Ride, Share Cost" data-ar="شارك الرحلة، شارك التكلفة">Share Ride, Share Cost</h1>
+            <p class="hero-subtitle" data-en="Saudi Arabia's leading smart logistics platform connecting individuals and businesses with reliable delivery solutions" data-ar="منصة لوجستية ذكية رائدة في المملكة العربية السعودية تربط الأفراد والشركات بحلول توصيل موثوقة">Saudi Arabia's leading smart logistics platform connecting individuals and businesses with reliable delivery solutions</p>
+            <div class="hero-buttons">
+                <a href="#download" class="btn btn-primary" data-en="Download App" data-ar="حمّل التطبيق">Download App</a>
+                <a href="#partners" class="btn btn-secondary" data-en="Become a Partner" data-ar="كن شريكاً">Become a Partner</a>
             </div>
         </div>
     </section>
 
-    <!-- About HitchGo Section -->
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">👥</div>
+                    <div class="stat-number" data-target="50" data-suffix="K+">0</div>
+                    <div class="stat-label" data-en="Active Users" data-ar="مستخدم نشط">Active Users</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <div class="stat-number" data-target="99.8" data-suffix="%">0</div>
+                    <div class="stat-label" data-en="On-Time Delivery" data-ar="توصيل في الموعد">On-Time Delivery</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🏙️</div>
+                    <div class="stat-number" data-target="3">0</div>
+                    <div class="stat-label" data-en="Major Cities" data-ar="مدن رئيسية">Major Cities</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🤝</div>
+                    <div class="stat-number" data-target="250" data-suffix="+">0</div>
+                    <div class="stat-label" data-en="Business Partners" data-ar="شريك تجاري">Business Partners</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
     <section class="about-hitchgo" id="about">
         <div class="container">
             <h2 class="section-title" data-en="About HitchGo" data-ar="من نحن">About HitchGo</h2>
@@ -98,57 +1655,29 @@
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">👥</div>
-                    <div class="stat-number" data-target="50" data-suffix="K+">0</div>
-                    <div class="stat-label" data-en="Active Users" data-ar="مستخدم نشط">Active Users</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⏱️</div>
-                    <div class="stat-number" data-target="99.8" data-suffix="%">0</div>
-                    <div class="stat-label" data-en="On-Time Delivery" data-ar="توصيل في الموعد">On-Time Delivery</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🏙️</div>
-                    <div class="stat-number" data-target="3">0</div>
-                    <div class="stat-label" data-en="Major Cities" data-ar="مدن رئيسية">Major Cities</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🏢</div>
-                    <div class="stat-number" data-target="250" data-suffix="+">0</div>
-                    <div class="stat-label" data-en="Business Partners" data-ar="شريك تجاري">Business Partners</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Platform Overview Section -->
+    <!-- Services Section -->
     <section class="services" id="platform">
         <div class="container">
             <h2 class="section-title" data-en="Platform Overview" data-ar="نظرة عامة على المنصة">Platform Overview</h2>
             <p class="section-subtitle" data-en="Discover all features and book deliveries in our mobile app" data-ar="اكتشف جميع الميزات واحجز التوصيل في تطبيقنا">Discover all features and book deliveries in our mobile app</p>
             
             <div class="services-grid">
-                <div class="service-card" data-aos="fade-up">
-                    <div class="service-icon">👤</div>
-                    <h3 class="service-title" data-en="For Individuals" data-ar="للأفراد">For Individuals</h3>
+                <div class="service-card">
+                    <div class="service-icon">📦</div>
+                    <h3 class="service-title" data-en="P2P Delivery" data-ar="التوصيل من شخص لآخر">P2P Delivery</h3>
                     <p class="service-description" data-en="Send parcels person-to-person with ease and affordability" data-ar="أرسل الطرود من شخص لآخر بسهولة وبأسعار معقولة">Send parcels person-to-person with ease and affordability</p>
-                    <a href="#download" class="service-link" data-en="Learn More in App →" data-ar="اعرف المزيد في التطبيق ←">Learn More in App →</a>
+                    <a href="#download" class="service-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</a>
                 </div>
                 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="service-card">
                     <div class="service-icon">🏢</div>
                     <h3 class="service-title" data-en="Business Solutions" data-ar="حلول الأعمال">Business Solutions</h3>
                     <p class="service-description" data-en="Enterprise-grade logistics tailored for your business needs" data-ar="حلول لوجستية احترافية مصممة لاحتياجات شركتك">Enterprise-grade logistics tailored for your business needs</p>
-                    <a href="#partners" class="service-link" data-en="Learn More in App →" data-ar="اعرف المزيد في التطبيق ←">Learn More in App →</a>
+                    <a href="#partners" class="service-link" data-en="Learn More →" data-ar="اعرف المزيد ←">Learn More →</a>
                 </div>
                 
-                <div class="service-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-icon">🛍️</div>
+                <div class="service-card">
+                    <div class="service-icon">🚀</div>
                     <h3 class="service-title" data-en="On-Demand Delivery" data-ar="التوصيل عند الطلب">On-Demand Delivery</h3>
                     <p class="service-description" data-en="Request deliveries anytime, anywhere across Saudi Arabia" data-ar="اطلب التوصيل في أي وقت ومكان في المملكة">Request deliveries anytime, anywhere across Saudi Arabia</p>
                     <a href="#download" class="service-link" data-en="Get Started →" data-ar="ابدأ ←">Get Started →</a>
@@ -157,7 +1686,7 @@
         </div>
     </section>
 
-    <!-- How It Works Section -->
+    <!-- How It Works -->
     <section class="how-it-works">
         <div class="container">
             <h2 class="section-title" data-en="How It Works" data-ar="كيف يعمل">How It Works</h2>
@@ -166,47 +1695,39 @@
                 <div class="timeline-item">
                     <div class="timeline-number">1</div>
                     <div class="timeline-content">
-                        <h3 data-en="Create Account" data-ar="إنشاء حساب">Create Account</h3>
-                        <p data-en="Sign up in 2 minutes" data-ar="سجّل في دقيقتين">Sign up in 2 minutes</p>
+                        <h3 data-en="Download App" data-ar="حمّل التطبيق">Download App</h3>
+                        <p data-en="Get started in minutes" data-ar="ابدأ في دقائق">Get started in minutes</p>
                     </div>
                 </div>
                 <div class="timeline-connector"></div>
                 <div class="timeline-item">
                     <div class="timeline-number">2</div>
                     <div class="timeline-content">
-                        <h3 data-en="Set Preferences" data-ar="تحديد التفضيلات">Set Preferences</h3>
-                        <p data-en="Choose your delivery type" data-ar="اختر نوع التوصيل">Choose your delivery type</p>
+                        <h3 data-en="Create Account" data-ar="أنشئ حساب">Create Account</h3>
+                        <p data-en="Quick and easy signup" data-ar="تسجيل سريع وسهل">Quick and easy signup</p>
                     </div>
                 </div>
                 <div class="timeline-connector"></div>
                 <div class="timeline-item">
                     <div class="timeline-number">3</div>
                     <div class="timeline-content">
-                        <h3 data-en="Match Partners" data-ar="مطابقة الشركاء">Match Partners</h3>
-                        <p data-en="AI-matched partners" data-ar="شركاء متطابقون بالذكاء الاصطناعي">AI-matched partners</p>
+                        <h3 data-en="Book Delivery" data-ar="احجز التوصيل">Book Delivery</h3>
+                        <p data-en="Choose your service" data-ar="اختر خدمتك">Choose your service</p>
                     </div>
                 </div>
                 <div class="timeline-connector"></div>
                 <div class="timeline-item">
                     <div class="timeline-number">4</div>
                     <div class="timeline-content">
-                        <h3 data-en="Track &amp; Confirm" data-ar="التتبع والتأكيد">Track &amp; Confirm</h3>
+                        <h3 data-en="Track &amp; Receive" data-ar="تتبع واستلم">Track &amp; Receive</h3>
                         <p data-en="Real-time tracking" data-ar="تتبع فوري">Real-time tracking</p>
-                    </div>
-                </div>
-                <div class="timeline-connector"></div>
-                <div class="timeline-item">
-                    <div class="timeline-number">5</div>
-                    <div class="timeline-content">
-                        <h3 data-en="Rate &amp; Earn" data-ar="التقييم والربح">Rate &amp; Earn</h3>
-                        <p data-en="Rate experience, earn rewards" data-ar="قيّم التجربة، احصل على الجوائز">Rate experience, earn rewards</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Enterprise Features Section -->
+    <!-- Enterprise Features -->
     <section class="enterprise-features" id="enterprise">
         <div class="container">
             <h2 class="section-title" data-en="Built for Enterprise" data-ar="مصمم للشركات">Built for Enterprise</h2>
@@ -215,7 +1736,7 @@
                 <div class="feature-card">
                     <div class="feature-icon">📊</div>
                     <h3 data-en="Smart Analytics" data-ar="تحليلات ذكية">Smart Analytics</h3>
-                    <p data-en="Real-time dashboards" data-ar="لوحات معلومات فورية">Real-time dashboards</p>
+                    <p data-en="Real-time dashboards and insights" data-ar="لوحات معلومات فورية ورؤى تحليلية">Real-time dashboards and insights</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🔌</div>
@@ -246,7 +1767,7 @@
         </div>
     </section>
 
-    <!-- Testimonials Section -->
+    <!-- Testimonials -->
     <section class="testimonials">
         <div class="container">
             <h2 class="section-title" data-en="Trusted by Leading Enterprises" data-ar="موثوق به من قبل الشركات الرائدة">Trusted by Leading Enterprises</h2>
@@ -254,42 +1775,40 @@
             <div class="testimonials-grid">
                 <div class="testimonial-card">
                     <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-quote" data-en="HitchGo reduced our delivery costs by 35% while improving customer satisfaction significantly." data-ar="خفّض هيتشقو تكاليف التوصيل لدينا بنسبة 35% مع تحسين رضا العملاء بشكل ملحوظ.">HitchGo reduced our delivery costs by 35% while improving customer satisfaction significantly.</p>
+                    <p class="testimonial-quote" data-en="HitchGo transformed our delivery operations completely. Professional, reliable, and incredibly cost-effective solution." data-ar="حوّلت HitchGo عمليات التوصيل لدينا بشكل كامل. حل احترافي وموثوق وفعال للغاية من حيث التكلفة.">HitchGo transformed our delivery operations completely. Professional, reliable, and incredibly cost-effective solution.</p>
                     <div class="testimonial-author">
-                        <div class="author-avatar">S</div>
+                        <div class="author-avatar">A</div>
                         <div class="author-info">
-                            <div class="author-name" data-en="Sarah Al-Mansouri" data-ar="سارة المنصوري">Sarah Al-Mansouri</div>
-                            <div class="author-title" data-en="Operations Director, Retail Chain KSA" data-ar="مديرة العمليات، سلسلة تجزئة في السعودية">Operations Director, Retail Chain KSA</div>
+                            <div class="author-name" data-en="Ahmed Al-Qahtani" data-ar="أحمد القحطاني">Ahmed Al-Qahtani</div>
+                            <div class="author-title" data-en="Operations Manager" data-ar="مدير العمليات">Operations Manager</div>
                         </div>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-quote" data-en="The fastest enterprise integration we've experienced. Professional from day one." data-ar="أسرع تكامل مؤسسي مررنا به. احترافي من البداية.">The fastest enterprise integration we've experienced. Professional from day one.</p>
-                    <div class="testimonial-author">
-                        <div class="author-avatar">M</div>
-                        <div class="author-info">
-                            <div class="author-name" data-en="Mohammad Al-Dosari" data-ar="محمد الدوسري">Mohammad Al-Dosari</div>
-                            <div class="author-title" data-en="CTO, E-Commerce Platform" data-ar="مدير التكنولوجيا، منصة التجارة الإلكترونية">CTO, E-Commerce Platform</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-quote" data-en="Reliable, scalable, and transparent. HitchGo is our trusted logistics partner." data-ar="موثوق وقابل للتوسع وشفاف. هيتشقو هو شريكنا الموثوق في اللوجستية.">Reliable, scalable, and transparent. HitchGo is our trusted logistics partner.</p>
+                    <p class="testimonial-quote" data-en="The easiest logistics integration we've ever implemented. Their support team goes above and beyond." data-ar="أسهل تكامل لوجستي قمنا بتنفيذه على الإطلاق. فريق الدعم يتجاوز كل التوقعات.">The easiest logistics integration we've ever implemented. Their support team goes above and beyond.</p>
                     <div class="testimonial-author">
                         <div class="author-avatar">F</div>
                         <div class="author-info">
-                            <div class="author-name" data-en="Fatimah Al-Khudairi" data-ar="فاطمة الخديري">Fatimah Al-Khudairi</div>
-                            <div class="author-title" data-en="Logistics Manager, Distribution Center" data-ar="مديرة اللوجستية، مركز التوزيع">Logistics Manager, Distribution Center</div>
+                            <div class="author-name" data-en="Fatimah Al-Shammari" data-ar="فاطمة الشمري">Fatimah Al-Shammari</div>
+                            <div class="author-title" data-en="CEO" data-ar="المديرة التنفيذية">CEO</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-quote" data-en="Flexible, transparent, and always on time. HitchGo is our most trusted logistics partner." data-ar="مرنة وشفافة ودائماً في الموعد. HitchGo هو شريكنا اللوجستي الأكثر موثوقية.">Flexible, transparent, and always on time. HitchGo is our most trusted logistics partner.</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">K</div>
+                        <div class="author-info">
+                            <div class="author-name" data-en="Khalid Al-Mutairi" data-ar="خالد المطيري">Khalid Al-Mutairi</div>
+                            <div class="author-title" data-en="Logistics Director" data-ar="مدير اللوجستية">Logistics Director</div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-
 
     <!-- Download Section -->
     <section class="download" id="download">
@@ -334,7 +1853,7 @@
             
             <div class="partnership-grid">
                 <div class="partnership-card">
-                    <div class="partnership-icon">🚗</div>
+                    <div class="partnership-icon">👤</div>
                     <h3 class="partnership-title" data-en="For Individuals" data-ar="للأفراد">For Individuals</h3>
                     <ul class="partnership-benefits">
                         <li data-en="Flexible work schedule" data-ar="جدول عمل مرن">Flexible work schedule</li>
@@ -359,10 +1878,6 @@
             </div>
         </div>
     </section>
-
-
-
-
 
     <!-- Coverage Section -->
     <section class="coverage">
@@ -389,46 +1904,56 @@
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
-            <h2 class="section-title" data-en="Contact Us" data-ar="تواصل معنا">Contact Us</h2>
-            <p class="section-subtitle" data-en="Get in touch with HitchGo. For bookings and detailed service inquiries, please download our mobile app." data-ar="تواصل مع HitchGo. للحجوزات والاستفسارات التفصيلية، يرجى تحميل تطبيقنا.">Get in touch with HitchGo. For bookings and detailed service inquiries, please download our mobile app.</p>
+            <h2 class="section-title" data-en="Get In Touch" data-ar="تواصل معنا">Get In Touch</h2>
+            <p class="section-subtitle" data-en="Connect with HitchGo for inquiries and partnerships" data-ar="تواصل مع HitchGo للاستفسارات والشراكات">Connect with HitchGo for inquiries and partnerships</p>
             
-            <div class="contact-content">
-                <div class="contact-info">
-                    <div class="contact-info-item">
-                        <div class="contact-icon">📍</div>
-                        <div>
-                            <h3 class="contact-info-title" data-en="Location" data-ar="الموقع">Location</h3>
-                            <p data-en="Al-Khobar, Saudi Arabia" data-ar="الخبر، المملكة العربية السعودية">Al-Khobar, Saudi Arabia</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-info-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <h3 class="contact-info-title" data-en="Email" data-ar="البريد الإلكتروني">Email</h3>
-                            <p>hitchgo.official@outlook.com</p>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-info-item">
-                        <div class="contact-icon">⏰</div>
-                        <div>
-                            <h3 class="contact-info-title" data-en="Business Hours" data-ar="ساعات العمل">Business Hours</h3>
-                            <p data-en="24/7 Available" data-ar="متاح على مدار الساعة">24/7 Available</p>
-                        </div>
-                    </div>
+            <div class="contact-methods-grid">
+                <div class="contact-method-card">
+                    <div class="contact-method-icon">✉️</div>
+                    <h3 class="contact-method-title" data-en="Email Us" data-ar="البريد الإلكتروني">Email Us</h3>
+                    <p class="contact-method-description" data-en="Send us an email anytime" data-ar="أرسل لنا بريداً في أي وقت">Send us an email anytime</p>
+                    <p class="contact-method-value">hitchgo.official@outlook.com</p>
+                    <a href="mailto:hitchgo.official@outlook.com" class="contact-method-btn" data-en="Send Email" data-ar="إرسال بريد">Send Email</a>
                 </div>
                 
+                <div class="contact-method-card">
+                    <div class="contact-method-icon">📍</div>
+                    <h3 class="contact-method-title" data-en="Visit Us" data-ar="زرنا">Visit Us</h3>
+                    <p class="contact-method-description" data-en="Our headquarters" data-ar="مقرنا الرئيسي">Our headquarters</p>
+                    <p class="contact-method-value" data-en="Al-Khobar, Saudi Arabia" data-ar="الخبر، المملكة العربية السعودية">Al-Khobar, Saudi Arabia</p>
+                </div>
+                
+                <div class="contact-method-card">
+                    <div class="contact-method-icon">🔗</div>
+                    <h3 class="contact-method-title" data-en="Follow Us" data-ar="تابعنا">Follow Us</h3>
+                    <p class="contact-method-description" data-en="Stay updated" data-ar="ابق على اطلاع">Stay updated</p>
+                    <div class="contact-social-links">
+                        <a href="https://x.com/Hitch2Go" target="_blank" rel="noopener noreferrer" class="contact-social-icon" aria-label="Twitter/X">
+                            <span>𝕏</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/hitch-go-4b3aa8391" target="_blank" rel="noopener noreferrer" class="contact-social-icon" aria-label="LinkedIn">
+                            <span>in</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-response-notice">
+                <p data-en="We typically respond within 24 hours" data-ar="عادةً ما نرد خلال 24 ساعة">We typically respond within 24 hours</p>
+            </div>
+            
+            <div class="contact-form-section">
+                <h3 class="contact-form-heading" data-en="Send us a Message" data-ar="أرسل لنا رسالة">Send us a Message</h3>
                 <form class="contact-form" action="https://formsubmit.co/hitchgo.official@outlook.com" method="POST">
-                    <input type="text" name="name" placeholder="Full Name" data-placeholder-en="Full Name" data-placeholder-ar="الاسم الكامل" required>
-                    <input type="email" name="email" placeholder="Email Address" data-placeholder-en="Email Address" data-placeholder-ar="عنوان البريد الإلكتروني" required>
-                    <textarea name="message" placeholder="Write your message here" data-placeholder-en="Write your message here" data-placeholder-ar="اكتب رسالتك هنا" required></textarea>
-
+                    <div class="contact-form-row">
+                        <input type="text" name="name" placeholder="Your Full Name" data-placeholder-en="Your Full Name" data-placeholder-ar="اسمك الكامل" required>
+                        <input type="email" name="email" placeholder="your@email.com" data-placeholder-en="your@email.com" data-placeholder-ar="بريدك@مثال.com" required>
+                    </div>
+                    <textarea name="message" placeholder="Tell us how we can help..." data-placeholder-en="Tell us how we can help..." data-placeholder-ar="أخبرنا كيف يمكننا المساعدة..." required></textarea>
                     <input type="hidden" name="_subject" value="New message from HitchGo website">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-
-                    <button type="submit" data-en="Send" data-ar="إرسال">Send</button>
+                    <button type="submit" class="btn btn-primary" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
                 </form>
             </div>
         </div>
@@ -449,13 +1974,13 @@
                 <div class="footer-social">
                     <h3 data-en="Follow Us" data-ar="تابعنا">Follow Us</h3>
                     <div class="social-links">
-                        <a href="https://www.linkedin.com/company/hitchgo" target="_blank" class="social-link social-link-active" aria-label="LinkedIn">
-                            <span>💼</span>
-                            <span>LinkedIn</span>
-                        </a>
-                        <a href="https://x.com/hitchgo_sa" target="_blank" class="social-link social-link-active" aria-label="X (Twitter)">
+                        <a href="https://x.com/Hitch2Go" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="X (Twitter)">
                             <span>𝕏</span>
-                            <span>X</span>
+                            <span>@Hitch2Go</span>
+                        </a>
+                        <a href="https://www.linkedin.com/in/hitch-go-4b3aa8391" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
+                            <span>💼</span>
+                            <span>HitchGo</span>
                         </a>
                     </div>
                 </div>
@@ -467,7 +1992,7 @@
         </div>
     </footer>
 
-    <!-- Live Chat Widget -->
+    <!-- Chat Widget -->
     <button class="chat-widget" id="chatWidget" aria-label="Live Chat">
         <span class="chat-icon">💬</span>
     </button>
@@ -498,7 +2023,7 @@
         </div>
     </div>
 
-    <!-- Success Notification -->
+    <!-- Notification -->
     <div class="notification" id="notification">
         <span class="notification-icon">✓</span>
         <span class="notification-text" data-en="Thank you! Your message has been sent to hitchgo.official@outlook.com" data-ar="شكراً لك! تم إرسال رسالتك إلى hitchgo.official@outlook.com">Thank you! Your message has been sent to hitchgo.official@outlook.com</span>
